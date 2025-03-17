@@ -8,6 +8,9 @@ import json
 
 files = os.listdir(os.curdir)  #files and directories
 print(files)
+st.write(files)
+print(os.getcwd())
+st.write(os.getcwd())
 
 path = ' Notes/'                    # Enter your path
 
