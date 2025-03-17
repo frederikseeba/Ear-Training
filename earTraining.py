@@ -6,7 +6,7 @@ import pygame
 import streamlit as st
 import json
 
-path = '/Notes/'                    # Enter your path
+path = '/workspaces/Ear-Training/Notes/'                    # Enter your path
 
 files = [ f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f)) ] # Return list with filenames of notes
 files = sorted(files)
