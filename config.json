@@ -1,56 +1,470 @@
 {
     "settings": {
         "mode": "Intervals",
-        "n": 1,
+        "n": 2,
         "intervalRange": [
-            13,
-            24
+            0,
+            4
         ],
         "simultaneous": false,
         "direction": "Ascending",
-        "tempo": 76,
+        "tempo": 60,
         "rhythm": false,
         "duration": 1.0,
         "pitchRange": [
-            1,
-            29
+            0,
+            87
         ],
-        "answerMode": false,
-        "advanceMode": "Click Button",
-        "showNotes": false,
+        "answerMode": true,
+        "saveProgress": true,
+        "weightModificator": 0.01,
+        "advanceMode": "Press enter",
+        "questionPeriod": 2.5,
+        "showNotes": true,
         "disableStart": false
     },
     "weights": {
-        "intervals": {
-            "0": 1.0,
-            "1": 1.0,
-            "2": 1.0,
-            "3": 1.0,
-            "4": 1.0,
-            "5": 1.0,
-            "6": 1.0,
-            "7": 1.0,
-            "8": 1.0,
-            "9": 1.0,
-            "10": 1.0,
-            "11": 1.0,
-            "12": 1.0,
-            "13": 1.0,
-            "14": 1.0,
-            "15": 1.0,
-            "16": 1.0,
-            "17": 1.0,
-            "18": 1.0,
-            "19": 1.0,
-            "20": 1.0,
-            "21": 1.0,
-            "22": 1.0,
-            "23": 1.0,
-            "24": 1.0,
-            "25": 1.0,
-            "26": 1.0,
-            "27": 1.0,
-            "28": 1.0
+        "Intervals": {
+            "0": {
+                "Ascending": 0.97,
+                "Descending": 0.96,
+                "Simultaneous": 1.0
+            },
+            "1": {
+                "Ascending": 0.82,
+                "Descending": 1.01,
+                "Simultaneous": 1.0
+            },
+            "2": {
+                "Ascending": 0.97,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "3": {
+                "Ascending": 0.96,
+                "Descending": 1.02,
+                "Simultaneous": 1.0
+            },
+            "4": {
+                "Ascending": 0.94,
+                "Descending": 0.98,
+                "Simultaneous": 1.0
+            },
+            "5": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "6": {
+                "Ascending": 0.99,
+                "Descending": 0.99,
+                "Simultaneous": 1.0
+            },
+            "7": {
+                "Ascending": 0.97,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "8": {
+                "Ascending": 0.96,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "9": {
+                "Ascending": 0.98,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "10": {
+                "Ascending": 1.0,
+                "Descending": 0.99,
+                "Simultaneous": 1.0
+            },
+            "11": {
+                "Ascending": 0.99,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "12": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "13": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "14": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "15": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "16": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "17": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "18": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "19": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "20": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "21": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "22": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "23": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "24": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "25": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "26": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "27": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "28": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "29": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "30": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "31": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "32": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "33": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "34": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "35": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "36": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "37": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "38": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "39": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "40": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "41": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "42": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "43": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "44": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "45": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "46": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "47": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "48": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "49": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "50": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "51": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "52": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "53": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "54": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "55": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "56": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "57": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "58": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "59": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "60": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "61": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "62": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "63": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "64": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "65": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "66": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "67": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "68": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "69": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "70": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "71": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "72": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "73": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "74": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "75": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "76": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "77": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "78": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "79": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "80": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "81": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "82": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "83": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "84": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "85": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "86": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            },
+            "87": {
+                "Ascending": 1.0,
+                "Descending": 1.0,
+                "Simultaneous": 1.0
+            }
         },
         "triads": {}
     }

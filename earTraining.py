@@ -64,38 +64,6 @@ def returnNoteNames(notes):
         names.append(name)
     return (' ').join(names)
 
-class generateIntervals:
-    # Dictionary to convert half steps to interval:
-    def __init__(self):
-        self.intervals = {0: '1', 1: 'b2', 2: '2', 3: 'b3', 4: '3', 5: '4', 6: 'b5', 7: '5', 8: 'b6', 9: '6', 10: 'b7', 11: 'M7', 12: '8', 13: 'b9', 14: '9', 15: 'b10', 16: '10', 17: '11', 18: '#11', 19: '5+8', 20: 'b13', 21: '13', 22: 'b7+8', 23: 'M7+8', 24: '2*8', 25: 'b2+2*8', 26: '2+8+8', 27: 'b3+2*8', 28: '3+2*8', 29: '4+2*8', 30: 'b5+2*8', 31: '5+2*8', 32: 'b6+2*8', 33: '6+2*8', 34: 'b7+2*8', 35: 'M7+2*8', 36: '3*8'}
-
-        for i in range(0, settings.n):
-            if settings.direction == 'All':
-                direction = random.choice(['Ascending', 'Descending'])
-            else:
-                direction = settings.direction
-
-            if direction == 'Ascending':
-                self.notes = [random.randint(settings.pitchRange[0], settings.pitchRange[1]-settings.intervalRange[0])]
-                lowerLimit = self.notes[i]+settings.intervalRange[0]
-                upperLimit = min(self.notes[i]+settings.intervalRange[1], settings.pitchRange[1])
-                self.notes.append(random.randint(lowerLimit, upperLimit))                           # second Note equal or lower than first
-            elif direction == 'Descending':
-                    self.notes = [random.randint(settings.pitchRange[0]+settings.intervalRange[0], settings.pitchRange[1])]
-                    lowerLimit = max(self.notes[i]-settings.intervalRange[1], settings.pitchRange[0])
-                    upperLimit = self.notes[i]-settings.intervalRange[0]
-                    self.notes.append(random.randint(lowerLimit, upperLimit))                        # second Note equal or lower than
-
-
-        self.noteNames = returnNoteNames(self.notes)
-        self.playedIntervals = []
-        for j in range(len(self.notes)-1):
-            self.playedIntervals.append(self.intervals[abs(self.notes[j+1]-self.notes[j])])
-
-        st.session_state.noteNames = self.noteNames
-        st.session_state.playedIntervals = self.playedIntervals
-        st.session_state.notes = self.notes
-
 def check_solution(answer_key = None, check_key = False, showAnswer = True):
     answerOutput = ''
     if answer_key or check_key:
@@ -104,12 +72,107 @@ def check_solution(answer_key = None, check_key = False, showAnswer = True):
                 answerOutput += "Correct!"
             else:
                 answerOutput += "False! Interval(s): " + (' ').join(st.session_state.playedIntervals)
+            changeWeights(st.session_state.answer.split(' '), st.session_state.playedIntervals)
         else:
             answerOutput += 'Intervals: ' + (' ').join(st.session_state.playedIntervals)  # Print solution
         if settings.showNotes:
             answerOutput += '  \nNotes: ' + st.session_state.noteNames
-    if showAnswer:
+    if showAnswer and settings.saveProgress:
         st.write(answerOutput)
+
+def changeWeights(answer, solution):
+    with open('config.json') as f: config = json.loads(f.read())
+
+    for x in range(len(solution)):
+        specifier = st.session_state.directions[x]
+        interval = [halfsteps for halfsteps, name in data.intervals.items() if name == solution[x]][0]
+
+        if solution[x] == answer[x]:                        # if correct answer -> decrease weight, else increase
+            modificator = -settings.weightModificator
+        else:
+            modificator = settings.weightModificator
+
+        config['weights'][settings.mode][str(interval)][specifier] += modificator
+
+    updateConfig(config)
+
+def updateConfig(config):
+    config = json.dumps(config, indent = 4)
+    with open('config.json', 'w') as f: f.write(config)
+
+class data:
+    def __init__(self):
+        self.intervals = {
+            0: '1', 1: 'b2', 2: '2', 3: 'b3', 4: '3', 5: '4', 6: 'b5', 7: '5', 8: 'b6', 9: '6',
+            10: 'b7', 11: 'M7', 12: '8', 13: 'b2+8', 14: '2+8', 15: 'b3+8', 16: '3+8', 17: '4+8',
+            18: 'b5+8', 19: '5+8', 20: 'b6+8', 21: '6+8', 22: 'b7+8', 23: 'M7+8', 24: '2*8',
+            25: 'b2+2*8', 26: '2+2*8', 27: 'b3+2*8', 28: '3+2*8', 29: '4+2*8', 30: 'b5+2*8',
+            31: '5+2*8', 32: 'b6+2*8', 33: '6+2*8', 34: 'b7+2*8', 35: 'M7+2*8', 36: '3*8',
+            37: 'b2+3*8', 38: '2+3*8', 39: 'b3+3*8', 40: '3+3*8', 41: '4+3*8', 42: 'b5+3*8',
+            43: '5+3*8', 44: 'b6+3*8', 45: '6+3*8', 46: 'b7+3*8', 47: 'M7+3*8', 48: '4*8',
+            49: 'b2+4*8', 50: '2+4*8', 51: 'b3+4*8', 52: '3+4*8', 53: '4+4*8', 54: 'b5+4*8',
+            55: '5+4*8', 56: 'b6+4*8', 57: '6+4*8', 58: 'b7+4*8', 59: 'M7+4*8', 60: '5*8',
+            61: 'b2+5*8', 62: '2+5*8', 63: 'b3+5*8', 64: '3+5*8', 65: '4+5*8', 66: 'b5+5*8',
+            67: '5+5*8', 68: 'b6+5*8', 69: '6+5*8', 70: 'b7+5*8', 71: 'M7+5*8', 72: '6*8',
+            73: 'b2+6*8', 74: '2+6*8', 75: 'b3+6*8', 76: '3+6*8', 77: '4+6*8', 78: 'b5+6*8',
+            79: '5+6*8', 80: 'b6+6*8', 81: '6+6*8', 82: 'b7+6*8', 83: 'M7+6*8', 84: '7*8',
+            85: 'b2+7*8', 86: '2+7*8', 87: 'b3+7*8'
+        }
+
+class generateIntervals:
+    # Dictionary to convert half steps to interval:
+    def __init__(self):
+
+
+        with open('config.json') as f: config = json.loads(f.read())
+
+        intervalWeights = config['weights']['Intervals']
+
+        if settings.direction == 'All':
+            direction = random.choice(['Ascending', 'Descending'])
+        else:
+            direction = settings.direction
+        self.directions = []                    # Initialise Directions list for weight adjusting
+
+        if direction == 'Ascending':
+            self.notes = [random.randint(settings.pitchRange[0], settings.pitchRange[1]-settings.intervalRange[0])]             # First Note
+        elif direction == 'Descending':
+                self.notes = [random.randint(settings.pitchRange[0]+settings.intervalRange[0], settings.pitchRange[1])]
+
+        for i in range(0, settings.n):
+            if direction == 'Ascending':
+                intervalLimitHigh = min(settings.intervalRange[1]+1, settings.pitchRange[1]-self.notes[i]+1)                      # Max interval can be the distance from the last note to the highest in range
+                sign = 1        # Positive
+            elif direction == 'Descending':
+                intervalLimitHigh = min(settings.intervalRange[1]+1, self.notes[i]-settings.pitchRange[0]+1)                  # Max interval can be the distance from the last note to the lowest in range
+                sign = -1       # Negative -> invert interval
+
+            intervalLimitLow = settings.intervalRange[0]
+
+            mode = 'Simultaneous' if settings.simultaneous else direction
+
+            intervalSelectMap = {x: intervalWeights[str(x)][mode] for x in range(intervalLimitLow, intervalLimitHigh)}
+            possibleIntervals = list(intervalSelectMap.keys())
+            weights = list(intervalSelectMap.values())
+
+            interval = random.choices(possibleIntervals, weights, k = 1)[0]
+            self.notes.append(self.notes[i]+sign*interval)
+            self.directions.append(direction)
+
+            if settings.direction == 'All':                                                         # Determine direction for next interval
+                direction = random.choice(['Ascending', 'Descending'])
+            else:
+                direction = settings.direction
+
+        self.noteNames = returnNoteNames(self.notes)
+        self.playedIntervals = []
+        for j in range(len(self.notes)-1):
+            self.playedIntervals.append(data.intervals[abs(self.notes[j+1]-self.notes[j])])
+
+        st.session_state.noteNames = self.noteNames
+        st.session_state.playedIntervals = self.playedIntervals
+        st.session_state.notes = self.notes
+        st.session_state.directions = self.directions
 
 def triads():
     simultaneous = settings.simultaneous
@@ -169,9 +232,14 @@ def triads():
 class getSettings:
     def __init__(self):
         with open('config.json') as f: config = json.loads(f.read())
+
         settings = config['settings']
 
         if st.session_state.get('show_settings', False):                    # Only if show settings is true
+
+            st.header('Training mode Settings')
+            st.write('')
+
             if st.button('Reset Settings', key = 'reset_settings'):
                 with open('config_backup.json') as f: config_backup = json.loads(f.read())
                 settings = config_backup['settings']
@@ -184,6 +252,10 @@ class getSettings:
                     self.simultaneous = st.toggle('Play simultaneous?', settings['simultaneous'])
                     if not self.simultaneous:
                         self.direction = st.selectbox('Direction', ['Ascending', 'Descending', 'All'])
+
+                        st.header('General Play Settings')
+                        st.write('')
+
                         self.tempo = st.slider('Tempo', 1, 300, value = settings['tempo'], step = 5)
                         self.rhythm = settings['rhythm'] #self.rhythm = input('Randomize Rythm? (y/n) ').lower().strip() == 'y'
                     else:
@@ -194,6 +266,10 @@ class getSettings:
                     self.simultaneous = st.checkbox('Play simultaneous?', settings['simultaneous'])
                     if not self.simultaneous:
                         self.direction = st.selectbox('Direction', ['Ascending', 'Descending', 'All'])
+
+                        st.header('General Play Settings')
+                        st.write('')
+
                         self.tempo = st.slider('Tempo', 1, 300, value = settings['tempo'], step = 5)
                         self.rhythm = settings['rhythm'] #self.rhythm = input('Randomize Rythm? (y/n) ').lower().strip() == 'y'
                     else:
@@ -207,39 +283,66 @@ class getSettings:
                 self.disableStart = True
             else:
                 self.disableStart = False
-            self.answerMode = st.toggle('Type answer mode?', settings['answerMode'])
-            possibleAdvanceModes = ['Click Button', 'Press enter', 'Auto'] if self.answerMode else ['Click Button', 'Auto']
-            presetAdvanceMode = 'Click Button' if settings['advanceMode'] not in possibleAdvanceModes else settings['advanceMode']
-            print(presetAdvanceMode)
-            self.advanceMode = st.selectbox(label = 'Next question mode', options = possibleAdvanceModes)
+
+            st.header('Answer and Progress Settings')
+            st.write('')
+
+            self.answerMode = st.toggle('Type answer mode?', settings['answerMode'], key = 'answerModeToggle')
+            if self.answerMode:
+                self.saveProgress = st.toggle('Save Progress', settings['saveProgress'], key = 'saveProgressToggle')
+                if self.saveProgress:
+                    self.weightModificator = st.slider('Learning Speed', 0.0, 0.2, value = settings['weightModificator'], step = 0.01)
+                st.button('Reset Progress in current mode?', key = 'resetModeProgress')
+                st.button('Reset all Progress?', key = 'resetProgress')
+            possibleAdvanceModes = ['Click Button', 'Press enter'] if self.answerMode else ['Click Button', 'Auto']
+            presetAdvanceMode = possibleAdvanceModes.index('Click Button' if settings['advanceMode'] not in possibleAdvanceModes else settings['advanceMode'])
+            self.advanceMode = st.selectbox(label = 'Next question mode', options = possibleAdvanceModes, index = presetAdvanceMode)
+            if self.advanceMode == 'Auto':
+                self.answerMode = False
+                self.questionPeriod = st.slider('Time between questions', 0.5, 10.0, value = settings['questionPeriod'], step = 0.5)
             self.showNotes = st.toggle('Show notes in answer?', settings['showNotes'])
 
             for key in self.__dict__:
+                if key == 'tempo' and self.__dict__[key] == 0:      # Don't write tempo 0 (only if simultaneous playback is turned on)
+                    continue
                 config['settings'][key] = self.__dict__[key]
-            config = json.dumps(config, indent = 4)
-            with open('config.json', 'w') as f: f.write(config)
+            updateConfig(config)
         else:                                                               # Get settings from file
             for key in settings:
                 exec(f'self.{key} = settings[key]')         # Generate variables
 
+        st.write('')
+        st.write('')
+
 class appState:
     def __init__(self):
+        if st.session_state.get('resetModeProgress', False) or st.session_state.get('resetProgress', False):
+            with open('config.json') as f: config = json.loads(f.read())
+            with open('config_backup.json') as f: backup_config = json.loads(f.read())
+            if st.session_state.get('resetProgress', False):
+                config['weights'] = backup_config['weights']
+            else:
+                config['weights'][settings.mode] = backup_config['weights'][settings.mode]
+            updateConfig(config)
+            st.error("Progress Reset!")
+
         st.toggle('Show Settings', False, key = 'show_settings')
         if st.session_state.get('stopped', False) or not st.session_state.get('started', False):
             st.button('Start', 'started', disabled = settings.disableStart)
         else:
             st.session_state.started = True
             st.button('Stop', 'stopped')
-            st.button('Repeat', 'repeat')
-        if st.session_state.get('check', False) or st.session_state.get('answer', '') != '' and not settings.autoAdvanceMode and not st.session_state.get('next', False):
+            if not settings.advanceMode == 'Auto':
+                st.button('Repeat', 'repeat')
+        if (st.session_state.get('check', False) or st.session_state.get('answer', '') != '') and settings.advanceMode == 'Click Button' and not st.session_state.get('next', False) and not st.session_state.get('stopped', False):
             st.button('Next', 'next')
 
 
 class getSolution:
     def __init__(self, answer_key = None, check_key = False):
-        if settings.answerMode and (answer_key == None or settings.autoAdvanceMode):
+        if settings.answerMode and (answer_key == None or settings.advanceMode != 'Click Button'):
             answerInput = st.text_input('Answer', key = 'answer')
-        elif not settings.answerMode and check_key == False:
+        elif not settings.answerMode and check_key == False and not st.session_state.get('stopped', False):
             st.button('Check', 'check')
 
 def train():
@@ -251,7 +354,7 @@ def train():
     next_key = st.session_state.get('next', False)
     showAnswer = True
 
-    if next_key or answer_key == '' and not settings.autoAdvanceMode:
+    if next_key or answer_key == '' and settings.advanceMode == 'Click Button':
         showAnswer = False
         answer_key = None
         check_key = False
@@ -259,20 +362,26 @@ def train():
     #print(start_key, repeat_key, answer_key, check_key, next_key)
 
     if start_key:
+        if not settings.advanceMode == 'Auto':
+            getSolution(answer_key, check_key)         # Create text input if not existing / check button if not pressed
 
-        getSolution(answer_key, check_key)         # Create text input if not existing / check button if not pressed
         check_solution(answer_key, check_key, showAnswer)
 
-        if answer_key and not settings.autoAdvanceMode:
+        if answer_key and settings.advanceMode == 'Click Button':
             st.text_input('Answer', key = 'answer', value = st.session_state.answer, disabled=True)         # Disable Input
-        if (not repeat_key and not answer_key) or ((answer_key or check_key) and settings.autoAdvanceMode and not repeat_key):
+        if (not repeat_key and not answer_key) or ((answer_key or check_key) and settings.advanceMode != 'Click Button' and not repeat_key):
             match settings.mode:
                 case 'Intervals':
                     generateIntervals()
                 case 'Triads':
                     triads(settings)
-        if (start_key and not stop_key) and (not (answer_key or check_key) or next_key or repeat_key or ((answer_key or check_key) and settings.autoAdvanceMode)):    # Start or next or repeat --> play note
+        if (start_key and not stop_key) and (not (answer_key or check_key) or next_key or repeat_key or ((answer_key or check_key) and settings.advanceMode != 'Click Button')):    # Start or next or repeat --> play note
             playNotes()
+
+        if settings.advanceMode == 'Auto' and (start_key and not stop_key):
+            time.sleep(settings.questionPeriod)
+            st.session_state.check = True
+            st.rerun()
 
 
 
@@ -280,6 +389,8 @@ def train():
 st.title('Ear Training (Under Development)')
 st.write('')
 
+
+data = data()
 settings = getSettings()
 
 #st.write(settings)
