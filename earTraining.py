@@ -12,7 +12,7 @@ files = [ f for f in os.listdir(path) if os.path.isfile(os.path.join(path,f)) ] 
 files = sorted(files)
 
 
-
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.mixer.init()
 
 start_event = threading.Event()
